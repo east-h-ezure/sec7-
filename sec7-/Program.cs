@@ -40,6 +40,34 @@ namespace ClassSample
             var bmi = bmicalc.GetBmi(158, 45);
             var type = bmicalc.GetBodyType(bmi);
             Console.WriteLine($"あなたは「{type}」です。");
+
+            var date = new DateTime(2019, 4, 30);
+            var date1 = date.AddDays(1);
+            var date2 = date.AddMonths(6);
+            Console.WriteLine(date1);
+            Console.WriteLine(date2);
+           
+            //静的メソッド(new演算子が不要)
+            var isLeapYear = DateTime.IsLeapYear(2021);
+            if (isLeapYear)
+            {
+                Console.WriteLine("うるう年です");
+            }
+            else
+            {
+                Console.WriteLine("うるう年ではありません");
+            }
+
+            //インスタンス不要で使えるプロパティ→静的プロパティ
+            var today = DateTime.Today;
+            Console.WriteLine($"{today.Year}年{today.Month}月{today.Day}日");
+
+            var book3 = new Book { Title2 = "伊豆の踊子", Author2 = "あいうえお" };
+            book3.PrintTitle();
+            var book4 = new Book { Title2 = "走れメロス", Author2 = "太宰治" };
+            book4.PrintTitle();
+            Book.ClearCount();
+            Console.WriteLine(Book.Count);
         }
     }
     class Book
@@ -56,6 +84,22 @@ namespace ClassSample
             Console.WriteLine($"■{Title}");
             Console.WriteLine($"{Author} {Pages}ページ　評価：{Rating}");
 
+        }
+
+        //静的メソッドと静的プロパティの定義
+        public static int Count { get; set; }
+        public static void ClearCount()
+        {
+            Count = 0;
+        }
+        public string Title2 { get; set; }
+        public string Author2 { get; set; }
+
+        public void PrintTitle()
+        {
+            Console.WriteLine("書籍名：{0}", Title2);
+            Count++;
+            Console.WriteLine(Count);
         }
     }
 
